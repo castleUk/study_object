@@ -1,0 +1,39 @@
+package chapter1.after;
+
+public class Theater {
+    private TicketSeller ticketSeller;
+
+    public Theater(TicketSeller ticketSeller) {
+        this.ticketSeller = ticketSeller;
+    }
+
+    public void enter(Audience audience) {
+        // 기존의 코드를 ticketSeller 내부로 이동 (캡슐화)
+        // 더이상 Theater는 TicketOffice를 몰라도 된다.
+        ticketSeller.sellTo(audience);
+    }
+}
+
+
+/* 무엇이 문제인가?
+* 잘만든 모듈의 세가지 기능
+* 1. 제대로 동작한다.
+* 2. 변경에 용이해야 한다.
+* 3. 이해하기 쉬워야 한다.
+*
+* chapter1.type1 모듈의 코드들은 제대로 동작한다. 하지만, 변경에 용이하지도 이해하기 쉽지도 않은 코드이다.
+* 왜그런가?
+* 관람객과 판매원이 소극장의 통제를 받는 수동적인 존재임
+* 이해가능한 코드란 그 동작이 우리의 예상에서 크게 벗어나지 않아야 한다. 하지만 해당 코드들은 상식의 예상에서 크게 벗어난다.
+* 가장 심각한 문제는 Audience와 TicketSeller를 변경할 경우 Theater도 함게 변경되야 한다는 것이다.
+*
+* 다른 클래스들이 Audience의 내부에 더 많이 알면 알수록 Audience를 변경하기 어려워 진다.
+* 이것이 객체 사이의 의존성 문제이며, 결합도가 높다고 말한다.
+*
+* ---- 해결해보자-----
+* Theater가 Audience와 TicketSeller에 관해 너무 세세한 부분까지 알지 못하도록 차단하면 된다.
+* 다시말해 관람객과 판매원을 자율적인 존재로 만들면 되는 것이다.
+*  ======> chapter1.type2 모듈로 수정
+* Audience와 TiecketSeller를 변경하더라도 Theater를 더 이상 함께 변경할 필요가 없다.
+*
+* */
